@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.example.insta.AccountSettingsActivity
 import com.example.insta.Model.User
 import com.example.insta.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -49,6 +50,7 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
+        firebaseUser = FirebaseAuth.getInstance().currentUser!!
         val pref = context?.getSharedPreferences("PREFS",Context.MODE_PRIVATE)
         if (pref != null)
         {
@@ -63,10 +65,47 @@ class ProfileFragment : Fragment() {
             checkFollowAndFollowingButtonStatus()
         }
         view.edit_account_settings_btn.setOnClickListener {
-            startActivity(Intent(context, AccountSettingsActivity::class.java))
+            val getButtonText = view.edit_account_settings_btn.text.toString()
+            when
+            {
+                getButtonText == "Edit Profile" -> startActivity(Intent(context, AccountSettingsActivity::class.java))
+                getButtonText == "Follow" -> {
+                    firebaseUser?.uid.let {
+                        FirebaseDatabase.getInstance().reference
+                            .child("Follow")
+                            .child(it.toString()).child("Following").child(profileId)
+                            .setValue(true)
+                    }
+                    firebaseUser?.uid.let {
+                        FirebaseDatabase.getInstance().reference
+                            .child("Follow")
+                            .child(profileId).child("Followers").child(it.toString())
+                            .setValue(true)
+                    }
+
+                }
+
+                getButtonText == "Following" -> {
+                    firebaseUser?.uid.let {
+                        FirebaseDatabase.getInstance().reference
+                            .child("Follow")
+                            .child(it.toString()).child("Following").child(profileId)
+                            .removeValue()
+                    }
+                    firebaseUser?.uid.let {
+                        FirebaseDatabase.getInstance().reference
+                            .child("Follow")
+                            .child(profileId).child("Followers").child(it.toString())
+                            .removeValue()
+                    }
+
+                }
+            }
+            //
         }
         getFollowers()
         getFollowing()
+        userInfo()
         return view
     }
 
@@ -118,8 +157,7 @@ class ProfileFragment : Fragment() {
     }
     private fun getFollowers()
     {
-        val followersRef =
-            FirebaseDatabase.getInstance().reference
+        val followersRef = FirebaseDatabase.getInstance().reference
                 .child("Follow")
                 .child(profileId).child("Followers")
 
@@ -160,10 +198,6 @@ class ProfileFragment : Fragment() {
         val  usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(profileId)
         usersRef.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (context != null)
-                {
-                    return
-                }
                 if (snapshot.exists())
                 {
                     val user = snapshot.getValue<User>(User::class.java)
@@ -178,5 +212,29 @@ class ProfileFragment : Fragment() {
 
             }
         })
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        val pref = context?.getSharedPreferences("PREFS",Context.MODE_PRIVATE)?.edit()
+        pref?.putString("profileId",firebaseUser.uid)
+        pref?.apply()
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        val pref = context?.getSharedPreferences("PREFS",Context.MODE_PRIVATE)?.edit()
+        pref?.putString("profileId",firebaseUser.uid)
+        pref?.apply()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        val pref = context?.getSharedPreferences("PREFS",Context.MODE_PRIVATE)?.edit()
+        pref?.putString("profileId",firebaseUser.uid)
+        pref?.apply()
     }
 }

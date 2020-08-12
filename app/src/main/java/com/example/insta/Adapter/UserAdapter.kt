@@ -42,14 +42,14 @@ class UserAdapter (private var mContext: Context, private var mUser: List<User>,
         Picasso.get().load(user.getImage()).placeholder(R.drawable.profile).into(holder.userProfileImage)
 
         checkFollowingStatus(user.getUid(),holder.followButton)
-        holder.itemView.setOnClickListener {
+        holder.itemView.setOnClickListener (View.OnClickListener {
             val pref = mContext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit()
             pref.putString("profileId",user.getUid())
             pref.apply()
 
             (mContext as FragmentActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container,ProfileFragment()).commit()
-        }
+        })
         holder.followButton.setOnClickListener {
             if (holder.followButton.text.toString() == "Follow")
             {
