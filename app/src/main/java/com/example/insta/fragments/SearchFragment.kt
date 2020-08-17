@@ -87,7 +87,7 @@ class SearchFragment : Fragment() {
         query.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                     mUser?.clear()
-                    for (snapshot in snapshot.children)
+                    for (x in snapshot.children)
                     {
                         val user = snapshot.getValue(User::class.java)
                         if (user!=null)
@@ -112,7 +112,7 @@ class SearchFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (view?.search_edit_text?.text.toString() == "") {
                     mUser?.clear()
-                    for (snapshot in snapshot.children) {
+                    for (x in snapshot.children) {
                         val user = snapshot.getValue(User::class.java)
                         if (user != null) {
                             mUser?.add(user)

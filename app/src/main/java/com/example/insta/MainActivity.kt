@@ -1,5 +1,6 @@
 package com.example.insta
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -28,6 +29,8 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_add_post -> {
+                item.isChecked = false
+                startActivity(Intent(this@MainActivity,AddPostActivity::class.java))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_notifications -> {
