@@ -71,7 +71,7 @@ class SearchFragment : Fragment() {
                 {
                     recyclerView?.visibility = View.VISIBLE
                     retrieveUsers()
-                    searchUser(p0.toString().toLowerCase())
+                    searchUser(p0.toString())
                 }
             }
             override fun afterTextChanged(p0: Editable?) {
@@ -87,7 +87,7 @@ class SearchFragment : Fragment() {
         query.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                     mUser?.clear()
-                    for (x in snapshot.children)
+                    for (snapshot in snapshot.children)
                     {
                         val user = snapshot.getValue(User::class.java)
                         if (user!=null)
@@ -112,7 +112,7 @@ class SearchFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (view?.search_edit_text?.text.toString() == "") {
                     mUser?.clear()
-                    for (x in snapshot.children) {
+                    for (snapshot in snapshot.children) {
                         val user = snapshot.getValue(User::class.java)
                         if (user != null) {
                             mUser?.add(user)
