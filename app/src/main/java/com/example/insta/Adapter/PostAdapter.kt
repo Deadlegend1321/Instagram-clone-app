@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_account_settings.*
+import kotlinx.android.synthetic.main.activity_comments.*
 import kotlinx.android.synthetic.main.posts_layout.view.*
 
 class PostAdapter (private val mContext: Context, private val mPost: List<Post>) : RecyclerView.Adapter<PostAdapter.ViewHolder>()
@@ -63,6 +64,8 @@ class PostAdapter (private val mContext: Context, private val mPost: List<Post>)
                 FirebaseDatabase.getInstance().reference
                     .child("Likes").child(post.getPostid())
                     .child(firebaseUser!!.uid).setValue(true)
+
+                addNotification(post.getPublisher(), post.getPostid())
             }
             else
             {
@@ -226,6 +229,18 @@ class PostAdapter (private val mContext: Context, private val mPost: List<Post>)
             override fun onCancelled(error: DatabaseError) {
             }
         })
+    }
+    private fun addNotification(userId: String, postId: String)
+    {
+        val notiRef = FirebaseDatabase.getInstance().reference.child("Notifications")
+            .child(userId)
+        val notiMap = HashMap<String, Any>()
+        notiMap["userid"] = firebaseUser!!.uid
+        notiMap["text"] = "Liked your Post"
+        notiMap["postid"] = postId
+        notiMap["ispost"] = true
+        notiRef.push().setValue(notiMap)
+
     }
 
 }
