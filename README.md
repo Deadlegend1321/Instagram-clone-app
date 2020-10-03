@@ -39,7 +39,7 @@ Adding Photo to the saved Photos and Edit Profile Page
 
 
 
-Login and Register Screen
+Login and Register Screen , and Followers-Following
 
 
 
@@ -47,4 +47,4 @@ Login and Register Screen
 
 
 
-![4h6uj1](https://user-images.githubusercontent.com/51445048/94991723-7de60700-05a2-11eb-9091-69736cf64fc1.gif)
+![4h6uj1](https://user-images.githubusercontent.com/51445048/94991723-7de60700-05a2-11eb-9091-69736cf64fc1.gif)     ![4h6ve9](https://user-images.githubusercontent.com/51445048/94991897-d964c480-05a3-11eb-9f63-b2b9fda9fb03.gif)
