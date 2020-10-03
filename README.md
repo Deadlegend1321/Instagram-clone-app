@@ -32,3 +32,19 @@ Adding Photo to the saved Photos and Edit Profile Page
 
 
 ![4h66ae](https://user-images.githubusercontent.com/51445048/94984068-c7643100-0565-11eb-8dbd-7d7521624979.gif)    ![4h6u7d](https://user-images.githubusercontent.com/51445048/94991592-d10b8a00-05a1-11eb-89b2-a94eb55b4096.gif)
+
+
+
+
+
+
+
+Login and Register Screen
+
+
+
+
+
+
+
+![4h6uj1](https://user-images.githubusercontent.com/51445048/94991723-7de60700-05a2-11eb-9091-69736cf64fc1.gif)
