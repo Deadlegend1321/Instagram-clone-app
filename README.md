@@ -23,7 +23,7 @@ Adding new Post with Likes and Comment
 
 
 
-Adding Photo to the saved Photos
+Adding Photo to the saved Photos and Edit Profile Page
 
 
 
@@ -31,4 +31,4 @@ Adding Photo to the saved Photos
 
 
 
-![4h66ae](https://user-images.githubusercontent.com/51445048/94984068-c7643100-0565-11eb-8dbd-7d7521624979.gif)
+![4h66ae](https://user-images.githubusercontent.com/51445048/94984068-c7643100-0565-11eb-8dbd-7d7521624979.gif)    ![4h6u7d](https://user-images.githubusercontent.com/51445048/94991592-d10b8a00-05a1-11eb-89b2-a94eb55b4096.gif)
